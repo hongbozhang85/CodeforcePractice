@@ -56,7 +56,7 @@ public class ProblemA {
               if ( rtn > count ) count = rtn;
               rtn = 1;
           }
-            System.out.println(rtn);
+            //System.out.println(rtn);
         }
         if ( rtn > count ) count = rtn;
         System.out.println(count);
