@@ -1,0 +1,10 @@
+clean.zip
+bin
+.idea/uiDesigner.xml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/compiler.xml
+.idea/copyright/
+.idea/
+CodeforcePractice.iml
+
