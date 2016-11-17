@@ -31,8 +31,12 @@ public class ProblemB {
 
     public static void main(String[] args) {
         int num = 3;//4;
-        int[] array = {1,1,1};//{7,3,2,1};
+        int num1 = 4;
+        int[] array = {1,1,1};//
+        int[] array1 = {7,3,2,1};
         int method = 1;
+
+        //System.out.println(isPowerOf2(24,false));
 
         switch (method) {
             case 1:
@@ -43,21 +47,33 @@ public class ProblemB {
         }
     }
 
+    /**
+     * brute force, two loops. O(N^2)
+     * @param num
+     * @param array
+     */
     public static void methodA(int num, int[] array) {
         //brute force
         int count = 0;
         for ( int i = 0; i < array.length-1; i++) {
             for ( int j = i+1; j < array.length;j++) {
-                if ( isPower(2,array[i] + array[j]) ) {
-                   count++;
+                //if ( isPower(2,array[i] + array[j]) ) {
+                if ( isPowerOf2(array[i] + array[j],true) ) {
+                        count++;
                 }
             }
         }
         System.out.println(count);
     }
 
+
+    public static void methodB( int num, int[] array) {
+        
+    }
+
     /**
      * determine is value the power of base or not.
+     * use recursive
      * @param base base cannot be 1.
      * @param value
      * @return if base if power of value, return true; false otherwise.
@@ -80,4 +96,52 @@ public class ProblemB {
        }
 
     }
+
+    /**
+     * use java.lang.Integer built-in method
+     * @param value
+     * @return
+     */
+    public static boolean isPowerOf2(int value) {
+        /*
+        if ( (value & 0xFFFFFFFF) == 1) { // 0b1111_1111_1111_1111_1111_1111_1111_1111)
+            return true;
+        } else {
+            return false;
+        }
+        */
+        if ( Integer.bitCount(value) == 1) return true;
+        return false;
+   }
+
+    /**
+     * bitwise operation
+     * Hamming weight
+     * https://en.wikipedia.org/wiki/Hamming_weight *
+     * @param x
+     * @param useBuiltIn
+     * @return
+     */
+   public static boolean isPowerOf2(int x, boolean useBuiltIn) {
+        if (useBuiltIn == true) return isPowerOf2(x);
+        int m1 = 0x55555555;
+        int m2 = 0x33333333;
+        int m4 = 0x0f0f0f0f;
+        int m8 = 0x00ff00ff;
+        int m16 = 0x0000ffff;
+       //System.out.println(x);
+        x = (x & m1) + ((x >> 1) & m1);
+       //System.out.println(x);
+        x = (x & m2) + ((x >> 2) & m2);
+       //System.out.println(x);
+       //System.out.println(Integer.toBinaryString(x)+"\n"+Integer.toBinaryString(x & m4)+"\n"+Integer.toBinaryString(x>>4)+"\n"+Integer.toBinaryString((x>>4) & m4));
+       //System.out.println(x & m4);
+      //System.out.println((x >> 4) & m4);
+        x = (x & m4) + ((x >> 4) & m4);
+       //System.out.println(x);
+        x = (x & m8) + ((x >> 8) & m8);
+       //System.out.println(x);
+        if ( x == 1 ) return true;
+        return  false;
+   }
 }
